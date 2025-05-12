@@ -1,6 +1,6 @@
-# Ollama Chatbot with 3D Avatar
+# Basic AI Chatbot using Ollama Server
 
-This project combines LangChain, Ollama, and 3D graphics to create an interactive chatbot with avatar interfaces.
+This project combines LangChain, Ollama, streamlit to create an interactive chatbot interfaces.
 
 ## Prerequisites
 
@@ -55,7 +55,7 @@ Create a `.env` file in the root directory with the following variables:
 
 ```
 LANGCHAIN_API_KEY = ""
-LANGCHAIN_PROJECT = "ollama-chatbot"
+LANGCHAIN_PROJECT = ""
 ```
 
 Note: LangChain API key is only needed if you want to use LangSmith for tracking.
@@ -68,36 +68,6 @@ Note: LangChain API key is only needed if you want to use LangSmith for tracking
 streamlit run app.py
 ```
 
-### PyGame Avatar Interface
-
-```bash
-streamlit run pygame_app.py
-```
-
-### Panda3D Avatar Interface (Advanced)
-
-```bash
-streamlit run panda3d_app.py
-```
-
-## Avatar Options
-
-This project includes multiple avatar implementations:
-
-1. **Text Avatar**: Simple text-based avatar in a separate window
-2. **PyGame Avatar**: 2D animated face using PyGame
-3. **Panda3D Avatar**: 3D avatar using Panda3D (requires additional setup)
-
-## Troubleshooting
-
-### PyGame Avatar Issues
-- Make sure PyGame is properly installed
-- If you see "pygame.error: No available video device", you may be running in a headless environment
-
-### Panda3D Avatar Issues
-- Panda3D requires proper graphics drivers
-- If you see "ImportError: No module named 'panda3d'", make sure Panda3D is installed
-- Some models may not load correctly depending on your Panda3D installation
 
 ### General Issues
 - Make sure Ollama is running in the background
@@ -116,7 +86,7 @@ This project includes multiple avatar implementations:
 
 ## License
 
-[Your License Information]
+No License required. Anyone is free to use the code
 
 ## Acknowledgments
 
