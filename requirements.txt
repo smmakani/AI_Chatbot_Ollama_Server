@@ -1,0 +1,9 @@
+python-dotenv
+pykernel
+langchain_community
+langchain-core
+streamlit
+numpy
+pygame
+pillow
+panda3d
