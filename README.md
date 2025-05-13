@@ -1,6 +1,6 @@
 # Basic AI Chatbot using Ollama Server
 
-This project combines LangChain, Ollama, streamlit to create an interactive chatbot interfaces.
+This project combines LangChain, Ollama, and Flask to create an interactive chatbot interface.
 
 ## Prerequisites
 
@@ -56,42 +56,52 @@ Create a `.env` file in the root directory with the following variables:
 ```
 LANGCHAIN_API_KEY = ""
 LANGCHAIN_PROJECT = ""
+SECRET_KEY = "your_secret_key_here"  # For Flask session encryption
 ```
 
 Note: LangChain API key is only needed if you want to use LangSmith for tracking.
 
 ## Running the Application
 
-### Basic Streamlit Interface
+### Start the Flask Server
 
 ```bash
-streamlit run app.py
+python app.py
 ```
 
+Then open your browser and navigate to:
+```
+http://127.0.0.1:5000/
+```
 
-### General Issues
-- Make sure Ollama is running in the background
-- Check that the models you're trying to use are downloaded
-- If the avatar window doesn't appear, check the terminal for error messages
+## Features
+
+- **Model Selection**: Choose from different Ollama models
+- **Responsive UI**: Clean interface with proper styling
+- **Read-only Response Area**: Properly styled textarea that can't be edited
+- **Clear Functionality**: Reset the conversation with a single click
+- **Loading Indicator**: Visual feedback during response generation
+
+## Troubleshooting
+
+- **Ollama Connection**: Make sure Ollama is running in the background
+- **Model Availability**: Check that the models you're trying to use are downloaded
+- **Port Conflict**: If port 5000 is in use, modify the port in app.py
 
 ## Project Structure
 
-- `app.py`: Basic Streamlit interface
-- `pygame_avatar.py`: PyGame-based 2D avatar implementation
-- `pygame_app.py`: Streamlit interface with PyGame avatar integration
-- `panda3d_avatar.py`: Panda3D-based 3D avatar implementation
-- `panda3d_app.py`: Streamlit interface with Panda3D avatar integration
+- `app.py`: Flask application with LangChain integration
+- `templates/index.html`: HTML template for the web interface
+- `static/styles.css`: CSS styling for the application
 - `requirements.txt`: Project dependencies
 - `.env`: Environment variables
 
 ## License
 
-No License required. Anyone is free to use the code
+No License required. Anyone is free to use the code.
 
 ## Acknowledgments
 
 - LangChain: https://github.com/langchain-ai/langchain
 - Ollama: https://ollama.ai/
-- Streamlit: https://streamlit.io/
-- PyGame: https://www.pygame.org/
-- Panda3D: https://www.panda3d.org/
+- Flask: https://flask.palletsprojects.com/

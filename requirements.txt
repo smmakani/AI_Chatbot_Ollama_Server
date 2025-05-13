@@ -1,9 +1,6 @@
 python-dotenv
-pykernel
 langchain_community
 langchain-core
-streamlit
+flask
 numpy
-pygame
-pillow
-panda3d
+ollama

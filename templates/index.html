@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot With Open Source Models</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Chatbot With Open Source Models</h1>
+        
+        <div class="model-selection">
+            <label for="model-select">Select Model:</label>
+            <select id="model-select" name="model">
+                {% for model in model_options %}
+                <option value="{{ model }}" {% if model == selected_model %}selected{% endif %}>{{ model }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <div class="response-container">
+            <label for="response">Response:</label>
+            <textarea id="response" readonly>{{ response }}</textarea>
+        </div>
+        
+        <div class="input-container">
+            <label for="question">Ask Question:</label>
+            <input type="text" id="question" name="question" placeholder="Type your question here...">
+        </div>
+        
+        <div class="button-container">
+            <button id="clear-button">Clear</button>
+            <button id="ask-button">Ask</button>
+        </div>
+        
+        <div id="loading" class="loading-spinner" style="display: none;">
+            <div class="spinner"></div>
+            <p>Generating response...</p>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            // Handle model change
+            $('#model-select').change(function() {
+                const selectedModel = $(this).val();
+                
+                $.ajax({
+                    url: '/change_model',
+                    method: 'POST',
+                    data: { model: selectedModel },
+                    success: function(response) {
+                        // Clear the response area
+                        $('#response').val('');
+                    },
+                    error: function(error) {
+                        console.error('Error changing model:', error);
+                    }
+                });
+            });
+            
+            // Handle ask button click
+            $('#ask-button').click(function() {
+                const question = $('#question').val().trim();
+                const selectedModel = $('#model-select').val();
+                
+                if (question) {
+                    // Show loading spinner
+                    $('#loading').show();
+                    
+                    $.ajax({
+                        url: '/ask',
+                        method: 'POST',
+                        data: { 
+                            question: question,
+                            model: selectedModel
+                        },
+                        success: function(response) {
+                            // Hide loading spinner
+                            $('#loading').hide();
+                            
+                            if (response.status === 'success') {
+                                // Update response area
+                                $('#response').val(response.response);
+                            } else if (response.status === 'error') {
+                                alert('Error: ' + response.message);
+                            }
+                        },
+                        error: function(error) {
+                            // Hide loading spinner
+                            $('#loading').hide();
+                            console.error('Error asking question:', error);
+                            alert('An error occurred while processing your request.');
+                        }
+                    });
+                }
+            });
+            
+            // Handle clear button click
+            $('#clear-button').click(function() {
+                $.ajax({
+                    url: '/clear',
+                    method: 'POST',
+                    success: function(response) {
+                        // Clear the response area and question input
+                        $('#response').val('');
+                        $('#question').val('');
+                    },
+                    error: function(error) {
+                        console.error('Error clearing:', error);
+                    }
+                });
+            });
+            
+            // Handle Enter key in question input
+            $('#question').keypress(function(e) {
+                if (e.which === 13) { // Enter key
+                    $('#ask-button').click();
+                    return false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

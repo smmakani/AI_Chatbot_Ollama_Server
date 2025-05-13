@@ -116,5 +116,11 @@ def change_model():
     })
 
 if __name__ == '__main__':
+    # Create templates directory if it doesn't exist
+    os.makedirs('templates', exist_ok=True)
+    
+    # Create static directory if it doesn't exist
+    os.makedirs('static', exist_ok=True)
+    
     # Run the Flask app
     app.run(debug=True)
